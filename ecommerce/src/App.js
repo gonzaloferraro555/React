@@ -1,26 +1,34 @@
 
-import NavBar from './componentes/Navbar';
-import ItemListContainer from "./componentes/ItemListContainer";
-import Categ1Img from "./img/categoria1.png";
+
+
+
 import "bulma/css/bulma.css";
+import {BrowserRouter, Route,Routes} from "react-router-dom";
+
+
+
+import ProductoDetalle from "./Pages/ProductoDetalle"
+import Productos from "./Pages/Productos"
+import Layout from "./Pages/Layout";
+
+
+
+
+
 
 function App() {
   return (
-    <div className='hero is block'>
-      <div >
-        <NavBar />
-      </div>
-      <div className='column,center'>
-        <header className='title'>
-          Categorías
-        </header>
-        <div className='column'>
-          <ItemListContainer titulo="Calzados" img={Categ1Img}/>
-          <ItemListContainer titulo="Remeras" img={Categ1Img}/>
-          <ItemListContainer titulo="Pantalones" img={Categ1Img}/>
-        </div>
-      </div>
-    </div>
+      <BrowserRouter>    
+          <Routes>
+            <Route path="/" element={<Layout/>}>
+                <Route index element={<Productos/>}/>
+                <Route path="Categoria/:categoria" element={<Productos/>}/>            
+                <Route path="Productos/:id" element={<ProductoDetalle/>}/>
+                <Route path="Contacto"/>
+            </Route>
+            <Route path="*" element={<h1>Error 404, página no encontrada</h1>}/>
+          </Routes>         
+      </BrowserRouter> 
   );
 }
 

@@ -1,0 +1,33 @@
+h1{     text-align: center;     
+    font-size: 30px; }  
+p{     text-align: center; }   
+
+* {
+    padding: 0;
+    margin: 0;
+  }
+
+a{     background-color: rgb(21, 19, 19);     
+    border-radius: 4px;     
+    color:white;     
+    padding: 10px;     
+    text-decoration: none; }   
+    
+    
+nav{     
+        display: flex;
+        flex-direction: row;     
+        align-items: center;     
+        justify-content:space-between;     
+        background-color: rgb(229, 131, 19);     
+        height: 50px;  
+
+
+        z-index: 100; 
+    }  
+        
+    footer{     
+        background-color: black;    
+         height: 80px;    
+          margin-top: 10px;   
+        color:rgb(225, 136, 13);   }
