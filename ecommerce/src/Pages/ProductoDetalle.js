@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import listaProductos from "../data";
 import "../Producto.css";
+import { Link } from "react-router-dom";
+
 
 
 
@@ -18,8 +20,11 @@ function ProductoDetalle (){
     por eso es {id}. useParams siempre DEVUELVE OBJETOS. Si hubiese tenido tres
     vi hubiese podido desestructurarlas a las 3.*/
     
-    
-    const {precio,descripcion,image,titulo} = listaProductos.find (producto=>producto.id===id);
+
+
+
+
+    const {precio,descripcion,image,titulo} = listaProductos.find(producto=>producto.id===id);
     /*Tene en cuenta que siempre los url params, vienen como string, asique
     si a aprtir de ellos querés buscar info en algún lado, tenés que tenre
     en cuenta que el id de este json o de esa base de datos, sea del tipo string, y no
@@ -28,7 +33,7 @@ function ProductoDetalle (){
     /*Destructuro el objeto, para usar directamente
     los nombres de las vi. */
 
-  
+
     
     return (
         
@@ -37,6 +42,9 @@ function ProductoDetalle (){
             <img src={image} alt=""/>
             <h3>Precio: ${precio}</h3>
             <p>{descripcion}</p>
+            <div className="categoria">
+                <Link  to={`/`} >Volver</Link>      
+            </div>
         </article>
     )
 }
