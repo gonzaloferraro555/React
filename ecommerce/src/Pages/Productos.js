@@ -1,7 +1,9 @@
 import { Link, useParams} from "react-router-dom";
-import listaProductos from "../data";
+import listaProductos from "../asyncMock";
 import "../Producto.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getProductByCategory, getProducts } from "../asyncMock";
+import {ItemListContainer} from "../componentes/ItemListContainer";
 
 
 
@@ -13,31 +15,42 @@ function Productos(){
     
     const [lista,setLista] = useState(listaProductos);
     
-    function handleClick () {
-        setLista(listaProductos.filter(prod=>(prod.category==="Hombres")))
+    
+
+
+    
+    function handleLista () {
+        setLista(getProducts())
     }
 
-    function handleClick3 () {
-        setLista(listaProductos.filter(prod=>(prod.category==="Mujeres")))
+    function handleListaFiltrada (categoria) {
+        setLista(getProductByCategory(categoria));
     }
 
-    function handleClick2 () {
-        setLista(listaProductos);
-    }
 
+
+    useEffect (()=>{
+       if ((categoria==="Hombres")||(categoria==="Mujeres")){
+            handleListaFiltrada(categoria)
+        }
+        else {   
+            handleLista()}
+    
+    
+    },[categoria])
 
 
     function retorno (categoria) {
             if (categoria==="Hombres"){
                 return(
                     <div className="categoria">
-                        <Link onClick={handleClick3} to={`/Categoria/Mujeres`} >Mujeres</Link>
+                        <Link  to={`/Categoria/Mujeres`} >Mujeres</Link>
                     </div>
                      ) }
             if (categoria==="Mujeres") {
                 return(
                     <div className="categoria">
-                        <Link onClick={handleClick} to={`/Categoria/Hombres`} >Hombres</Link>   
+                        <Link  to={`/Categoria/Hombres`} >Hombres</Link>   
                     </div>
                              ) }                    
 
@@ -45,8 +58,8 @@ function Productos(){
                     return(
 
                     <div className="categoria">
-                        <Link onClick={handleClick} to={`/Categoria/Hombres`} >Hombres</Link>
-                        <Link onClick={handleClick3} to={`/Categoria/Mujeres`} >Mujeres</Link>
+                        <Link  to={`/Categoria/Hombres`} >Hombres</Link>
+                        <Link  to={`/Categoria/Mujeres`} >Mujeres</Link>
                     </div>
                     )
            
@@ -62,18 +75,9 @@ function Productos(){
                                     {retorno(categoria)}
                                 </div>  
                                 <div className="categoria">
-                                    <Link onClick={handleClick2} to={`/`} >Home</Link>     
+                                    <Link  to={`/`} >Home</Link>     
                                 </div>
-                                    {lista.map((producto)=>{
-                                    return (
-                                        <article key={producto.id}>
-                                            <h5>{producto.titulo}</h5>
-                                            <img src={producto.image} alt={producto.descripcion}/>  
-                                            <Link to={`/Productos/${producto.id}`} >Más Info</Link>
-                                        </article>
-                                    );
-                                    
-                            })}
+                                <ItemListContainer lista={lista} />
 
                         </div>
                        

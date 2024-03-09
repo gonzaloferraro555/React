@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
-import listaProductos from "../data";
+import listaProductos from "../asyncMock";
 import "../Producto.css";
-import { Link } from "react-router-dom";
+import { getProductById } from "../asyncMock";
+import ItemDetalle from "../componentes/ItemDetalle";
+import { useEffect,useState } from "react";
+
 
 
 
@@ -22,9 +25,20 @@ function ProductoDetalle (){
     
 
 
+    const [lista,setLista] = useState(listaProductos);
+    
+    
+    function handleLista () {
+        setLista(getProductById(id) 
+ )}
 
 
-    const {precio,descripcion,image,titulo} = listaProductos.find(producto=>producto.id===id);
+
+    useEffect (()=>{
+        handleLista();
+        }
+    );
+    
     /*Tene en cuenta que siempre los url params, vienen como string, asique
     si a aprtir de ellos querés buscar info en algún lado, tenés que tenre
     en cuenta que el id de este json o de esa base de datos, sea del tipo string, y no
@@ -36,16 +50,8 @@ function ProductoDetalle (){
 
     
     return (
-        
-        <article className="galeria">
-            <h2>Detalle de {titulo}</h2>
-            <img src={image} alt=""/>
-            <h3>Precio: ${precio}</h3>
-            <p>{descripcion}</p>
-            <div className="categoria">
-                <Link  to={`/`} >Volver</Link>      
-            </div>
-        </article>
+            <ItemDetalle titulo={lista.titulo} image={lista.image} precio={lista.precio} descripcion={lista.descripcion} />
+
     )
 }
 

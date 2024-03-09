@@ -69,10 +69,13 @@ const listaProductos =
 ];
 
 
+
 export default listaProductos;
 
 /*Función que se carga cuando no hay parámetro en la url,
 es decir no aplique ningún parámetro de filtro */
+
+
 
 
 
@@ -84,11 +87,25 @@ export const getProducts =()=>{
     }
 
 
+    getProducts (listaProductos)
+        .then (()=>{
+            return (listaProductos)
+    })
+
+
+
+
 export const getProductById = (productId)=>{
     return new Promise((resolve)=>{
         resolve(listaProductos.find(prod=> prod.id === productId),500)
     })
 }
+
+getProductById()
+.then (()=>{
+    return (listaProductos)
+})
+
 
 
 export const getProductByCategory = (productByCategory)=>{
@@ -96,3 +113,9 @@ export const getProductByCategory = (productByCategory)=>{
         resolve(listaProductos.filter(prod=> prod.category === productByCategory),500)
     })
 }
+
+
+getProductByCategory()
+.then (()=>{
+    return (listaProductos)
+})
