@@ -2,9 +2,12 @@ import { Link, useParams} from "react-router-dom";
 import listaProductos from "../asyncMock";
 import "../Producto.css";
 import { useEffect, useState } from "react";
-import { getProductByCategory, getProducts } from "../asyncMock";
-import {ItemListContainer} from "../componentes/ItemListContainer";
-
+import ItemListContainer from "../componentes/ItemListContainer";
+/*Cuando importas por default, no necesitás corchetes, 
+  pero si termino importando algo por nombre del tipo
+   export function NombreFunción; entonces si debo importarla con corchetes.
+   Para el caso de los gerProduct, la exportación no es dafault, además son variables, 
+   no funciones. La variable listaProductos es exportada por default, por eso va entre corchetes.*/
 
 
 function Productos(){
@@ -16,25 +19,37 @@ function Productos(){
     const [lista,setLista] = useState(listaProductos);
     
     
-
-
+    const getProducts =()=>{
+        return new Promise((resolve)=>{
+            setTimeout(()=>{
+                resolve (listaProductos)},500)
+            })
+        }
     
-    function handleLista () {
-        setLista(getProducts())
-    }
 
-    function handleListaFiltrada (categoria) {
-        setLista(getProductByCategory(categoria));
-    }
 
+        const getProductByCategory = (categoria)=>{
+            return new Promise((resolve)=>{
+                setTimeout(() => {
+                const lista2 =listaProductos.filter(prod=> prod.category === categoria)
+                resolve(lista2)},500)
+            })
+        }
+        
+        
 
 
     useEffect (()=>{
        if ((categoria==="Hombres")||(categoria==="Mujeres")){
-            handleListaFiltrada(categoria)
-        }
+            getProductByCategory(categoria)
+            .then ((lista2)=>{
+            setLista(lista2)
+                            })}
         else {   
-            handleLista()}
+            getProducts ()
+            .then (()=>{
+            setLista(listaProductos)
+        })}
     
     
     },[categoria])
@@ -77,8 +92,9 @@ function Productos(){
                                 <div className="categoria">
                                     <Link  to={`/`} >Home</Link>     
                                 </div>
-                                <ItemListContainer lista={lista} />
-
+                                <div>
+                                    <ItemListContainer list={lista} />
+                                </div>                           
                         </div>
                        
                     </div>
@@ -91,3 +107,4 @@ function Productos(){
     
 
 export default Productos;
+

@@ -1,7 +1,5 @@
 import { useParams } from "react-router-dom";
 import listaProductos from "../asyncMock";
-import "../Producto.css";
-import { getProductById } from "../asyncMock";
 import ItemDetalle from "../componentes/ItemDetalle";
 import { useEffect,useState } from "react";
 
@@ -23,20 +21,26 @@ function ProductoDetalle (){
     por eso es {id}. useParams siempre DEVUELVE OBJETOS. Si hubiese tenido tres
     vi hubiese podido desestructurarlas a las 3.*/
     
-
-
-    const [lista,setLista] = useState(listaProductos);
+    const getProductById = (id)=>{
+        return new Promise((resolve)=>{
+            setTimeout(() => { 
+            let produc = listaProductos.find(prod=> prod.id === id);
+            resolve(produc)},500)
+        })}
     
     
-    function handleLista () {
-        setLista(getProductById(id) 
- )}
 
 
+    const [producto,setProd] = useState(listaProductos[0]);
+    
 
     useEffect (()=>{
-        handleLista();
-        }
+        getProductById(id)
+        .then ((produc)=>{
+        setProd(produc)
+    })
+        
+        },[id]
     );
     
     /*Tene en cuenta que siempre los url params, vienen como string, asique
@@ -50,7 +54,7 @@ function ProductoDetalle (){
 
     
     return (
-            <ItemDetalle titulo={lista.titulo} image={lista.image} precio={lista.precio} descripcion={lista.descripcion} />
+            <ItemDetalle titulo={producto.titulo} image={producto.image} precio={producto.precio} descripcion={producto.descripcion} />
 
     )
 }

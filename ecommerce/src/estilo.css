@@ -5,9 +5,11 @@ p{     text-align: center; }
 * {
     padding: 0;
     margin: 0;
+    background-image: "https://es.pngtree.com/freebackground/sports-basketball-backplane_780138.html"
+        
   }
 
-a{     background-color: rgb(21, 19, 19);     
+a{     background-color: rgb(219, 96, 25);     
     border-radius: 4px;     
     color:white;     
     padding: 10px;     
@@ -21,13 +23,21 @@ nav{
         justify-content:space-between;     
         background-color: rgb(229, 131, 19);     
         height: 50px;  
-
-
-        z-index: 100; 
-    }  
+        z-index: 100;
+       }  
         
-    footer{     
-        background-color: black;    
-         height: 80px;    
-          margin-top: 10px;   
-        color:rgb(225, 136, 13);   }
+    footer{         
+        position: relative;
+        height: 300px;    
+        margin-top: 100 px;   
+        color:rgb(225, 136, 13);   
+        background-image: url("https://t3.ftcdn.net/jpg/02/07/72/08/360_F_207720856_R6azOy4FeGuvkSGFJoSFKcSaItRYKhzb.jpg");
+
+    
+    }
+
+
+.fondoPagina{
+        background-image: "https://png.pngtree.com/thumb_back/fh260/back_pic/04/07/48/465811cc88e057c.jpg";
+        }
+
